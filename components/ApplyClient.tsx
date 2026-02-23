@@ -67,7 +67,7 @@ function ApplicationForm({
         <CheckCircle size={48} className="text-[#BF4E14] mb-5" strokeWidth={1.5} />
         <h3 className="font-display text-2xl font-light text-black mb-3">Application Received</h3>
         <p className="text-[#4A4A4A] text-sm max-w-sm">
-          Thank you for applying. We've received your application and will be in touch within 5–7 working days.
+          Thank you for applying. We&apos;ve received your application and will be in touch within 5–7 working days.
         </p>
       </div>
     );

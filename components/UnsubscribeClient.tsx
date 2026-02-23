@@ -45,7 +45,7 @@ export default function UnsubscribeClient() {
               Unsubscribed
             </h2>
             <p className="text-[#4A4A4A] text-sm mb-6">
-              You've been removed from the Da Hausa Initiative mailing list.
+              You&apos;ve been removed from the Da Hausa Initiative mailing list.
             </p>
             <Link href="/" className="btn-outline-orange text-sm">
               Return to Website

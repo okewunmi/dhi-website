@@ -59,7 +59,7 @@ export default async function AboutPage() {
             </div>
             <div className="bg-[#F5F5F5] p-10">
               <p className="font-display text-2xl font-light text-black italic leading-relaxed">
-                "When communities understand money and data, they make better decisions, advocate for their rights, and build stronger futures."
+                &quot; When communities understand money and data, they make better decisions, advocate for their rights, and build stronger futures.&quot;
               </p>
               <div className="w-12 h-0.5 bg-[#BF4E14] mt-6" />
             </div>

@@ -151,7 +151,7 @@ export default function MoreClient({
             {subDone ? (
               <div className="bg-white p-10 border border-[#E8E8E8] flex flex-col items-center">
                 <CheckCircle size={40} className="text-[#BF4E14] mb-4" strokeWidth={1.5} />
-                <h3 className="font-display text-2xl font-light text-black mb-2">You're subscribed!</h3>
+                <h3 className="font-display text-2xl font-light text-black mb-2">You&apos;re subscribed!</h3>
                 <p className="text-[#4A4A4A] text-sm">Check your inbox for a welcome email from Da Hausa Initiative.</p>
               </div>
             ) : (
@@ -237,7 +237,7 @@ export default function MoreClient({
                   <div className="bg-[#F5F5F5] p-10 flex flex-col items-center text-center">
                     <CheckCircle size={40} className="text-[#BF4E14] mb-4" strokeWidth={1.5} />
                     <h3 className="font-display text-2xl font-light text-black mb-2">Message Sent</h3>
-                    <p className="text-[#4A4A4A] text-sm">Thank you for reaching out. We'll get back to you shortly.</p>
+                    <p className="text-[#4A4A4A] text-sm">Thank you for reaching out. We&apos;ll get back to you shortly.</p>
                   </div>
                 ) : (
                   <form onSubmit={handleContact} className="space-y-5">
