@@ -42,7 +42,7 @@ export default function HomeAboutPreview({ data }: { data: AboutPreviewData }) {
           {/* Text */}
           <div className="order-1 lg:order-2">
             <span className="section-label">Who We Are</span>
-            <h2 className="font-display text-4xl lg:text-5xl font-light text-black mb-6">
+            <h2 className="font-display text-3xl lg:text-4xl font-light text-black mb-6">
               {data.headline || "About Da Hausa Initiative"}
             </h2>
             <div className="w-12 h-0.5 bg-[#BF4E14] mb-8" />

@@ -42,7 +42,7 @@ export default function HomeApproaches({ data }: { data: ApproachesData }) {
           {/* Label */}
           <div className="lg:col-span-1">
             <span className="section-label">&nbsp;</span>
-            <h2 className="font-display text-4xl lg:text-5xl font-light text-white leading-tight">
+            <h2 className="font-display text-3xl lg:text-5xl font-light text-white leading-tight">
               {data.headline || "How We Work"}
             </h2>
             <div className="w-12 h-0.5 bg-[#BF4E14] mt-6" />

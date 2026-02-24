@@ -140,7 +140,7 @@ export default function MoreClient({
         <div className="container-dhi">
           <div className="max-w-2xl mx-auto text-center">
             <span className="section-label block text-center">Stay Informed</span>
-            <h2 className="font-display text-4xl font-light text-black mb-4">
+            <h2 className="font-display text-3xl font-light text-black mb-4">
               Subscribe to Our Newsletter
             </h2>
             <p className="text-[#4A4A4A] mb-10">

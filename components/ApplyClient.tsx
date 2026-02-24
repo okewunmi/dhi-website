@@ -170,7 +170,7 @@ export default function ApplyClient({ formConfig }: { formConfig: FormConfig }) 
       <section className="bg-[#F5F5F5] py-20 lg:py-28">
         <div className="container-dhi">
           <span className="section-label">Take Action</span>
-          <h1 className="font-display text-5xl lg:text-7xl font-light text-black mb-6 max-w-3xl">
+          <h1 className="font-display text-4xl lg:text-6xl font-light text-black mb-6 max-w-3xl">
             Apply / Register
           </h1>
           <p className="text-[#4A4A4A] text-lg max-w-2xl">{formConfig.apply_page_intro}</p>
@@ -192,7 +192,7 @@ export default function ApplyClient({ formConfig }: { formConfig: FormConfig }) 
             <div className="grid lg:grid-cols-3 gap-12">
               {/* Sidebar */}
               <div className="lg:col-span-1">
-                <h2 className="font-display text-3xl font-light text-black mb-6">
+                <h2 className="font-display text-2xl font-light text-black mb-6">
                   Choose a Programme
                 </h2>
                 <div className="space-y-3">

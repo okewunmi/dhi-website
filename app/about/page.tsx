@@ -32,7 +32,7 @@ export default async function AboutPage() {
       <section className="bg-black text-white py-24 lg:py-32">
         <div className="container-dhi">
           <span className="section-label">Da Hausa Initiative</span>
-          <h1 className="font-display text-5xl lg:text-7xl font-light text-white mb-6 max-w-3xl">
+          <h1 className="font-display text-3xl lg:text-7xl font-light text-white mb-6 max-w-3xl">
             {hero.headline || "About Da Hausa Initiative"}
           </h1>
           <div className="w-16 h-px bg-[#BF4E14] mb-8" />
@@ -48,7 +48,7 @@ export default async function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
               <span className="section-label">Our Story</span>
-              <h2 className="font-display text-4xl font-light text-black mb-6">
+              <h2 className="font-display text-3xl font-light text-black mb-6">
                 {why.headline || "Why DHI Exists"}
               </h2>
               <div className="w-12 h-0.5 bg-[#BF4E14] mb-8" />
@@ -71,7 +71,7 @@ export default async function AboutPage() {
       <section className="section-padding bg-[#F5F5F5]">
         <div className="container-dhi">
           <span className="section-label">Focus Areas</span>
-          <h2 className="font-display text-4xl font-light text-black mb-12">
+          <h2 className="font-display text-3xl font-light text-black mb-12">
             {(what.headline as string) || "What We Work On"}
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
@@ -91,7 +91,7 @@ export default async function AboutPage() {
       <section className="section-padding bg-white">
         <div className="container-dhi">
           <span className="section-label">Our Approach</span>
-          <h2 className="font-display text-4xl font-light text-black mb-4">
+          <h2 className="font-display text-3xl font-light text-black mb-4">
             {(how.headline as string) || "How DHI Works"}
           </h2>
           <p className="text-[#4A4A4A] mb-12 max-w-2xl">
@@ -124,7 +124,7 @@ export default async function AboutPage() {
               <span className="text-orange-200 text-xs font-bold uppercase tracking-widest mb-4 block">
                 Where We Work
               </span>
-              <h2 className="font-display text-4xl lg:text-5xl font-light text-white mb-6">
+              <h2 className="font-display text-3xl lg:text-5xl font-light text-white mb-6">
                 {focus.headline || "Our Focus: Northern Nigeria"}
               </h2>
               <div className="w-12 h-px bg-white/40 mb-8" />

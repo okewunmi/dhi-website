@@ -19,7 +19,7 @@ export default async function MorePage() {
       <section className="bg-black text-white py-20 lg:py-28">
         <div className="container-dhi">
           <span className="section-label">Explore</span>
-          <h1 className="font-display text-5xl lg:text-7xl font-light text-white mb-6 max-w-3xl">
+          <h1 className="font-display text-4xl lg:text-6xl font-light text-white mb-6 max-w-3xl">
             {hero.headline || "Resources, Newsletter & Contact"}
           </h1>
           <p className="text-gray-300 text-lg max-w-2xl">

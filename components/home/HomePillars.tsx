@@ -37,7 +37,7 @@ export default function HomePillars({ data }: { data: PillarsData }) {
       <div className="container-dhi">
         <div className="text-center mb-12">
           <span className="section-label block text-center">Our Focus</span>
-          <h2 className="font-display text-4xl lg:text-5xl font-light text-black">
+          <h2 className="font-display text-3xl lg:text-5xl font-light text-black">
             {data.headline || "Our Two Pillars"}
           </h2>
         </div>
