@@ -472,7 +472,6 @@
 //   );
 // }
 
-
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -733,7 +732,23 @@ function FieldEditor({ fieldKey, value, onChange }: {
     return <textarea value={value} rows={4} onChange={(e) => onChange(e.target.value)} className="input-dhi text-sm py-2 resize-y" />;
   }
 
-  return <input type="text" value={String(value ?? "")} onChange={(e) => onChange(e.target.value)} className="input-dhi text-sm py-2" />;
+  // Plain nested object — render as indented sub-fields
+  if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+    const obj = value as Record<string, unknown>;
+    return (
+      <div className="border border-[#E8E8E8] bg-[#FAFAFA] p-4 space-y-3">
+        {Object.entries(obj).map(([k, v]) => (
+          <div key={k}>
+            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wide block mb-1">{k.replace(/_/g, " ")}</label>
+            <FieldEditor fieldKey={k} value={v} onChange={(nv) => onChange({ ...obj, [k]: nv })} />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Short text fallback
+  return <input type="text" value={typeof value === "string" || typeof value === "number" ? String(value) : ""} onChange={(e) => onChange(e.target.value)} className="input-dhi text-sm py-2" />;
 }
 
 // ─── Section editor ───────────────────────────────────────────
@@ -949,3 +964,5 @@ export default function CmsEditorClient({ page, sections }: CmsEditorClientProps
     </div>
   );
 }
+
+
