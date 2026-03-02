@@ -68,16 +68,16 @@ export default function Footer() {
               <a href="#" aria-label="Twitter" className="text-gray-500 hover:text-[#BF4E14] transition-colors">
                 <Twitter size={18} />
               </a>
-              <a href="https://www.youtube.com/@Dahausainitiative" aria-label="YouTube" className="text-gray-500 hover:text-[#BF4E14] transition-colors">
+              <a target="_blank" href="https://www.youtube.com/@Dahausainitiative" aria-label="YouTube" className="text-gray-500 hover:text-[#BF4E14] transition-colors">
                 <Youtube size={18} />
               </a>
-              <a href="https://www.linkedin.com/company/da-hausa-initiative/" aria-label="LinkedIn" className="text-gray-500 hover:text-[#BF4E14] transition-colors">
+              <a target="_blank" href="https://www.linkedin.com/company/da-hausa-initiative/" aria-label="LinkedIn" className="text-gray-500 hover:text-[#BF4E14] transition-colors">
                 <Linkedin size={18} />
               </a>
               <a href="#" aria-label="Facebook" className="text-gray-500 hover:text-[#BF4E14] transition-colors">
                 <Facebook size={18} />
               </a>
-              <a href="https://www.instagram.com/dahausainitiative/" aria-label="Instagram" className="text-gray-500 hover:text-[#BF4E14] transition-colors">
+              <a target="_blank" href="https://www.instagram.com/dahausainitiative/" aria-label="Instagram" className="text-gray-500 hover:text-[#BF4E14] transition-colors">
                 <Instagram size={18} />
               </a>
             </div>
