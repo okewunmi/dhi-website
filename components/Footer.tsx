@@ -111,8 +111,8 @@ export default function Footer() {
             <div className="space-y-3">
               <p className="text-sm text-gray-400">
                 <span className="block text-xs text-gray-600 uppercase tracking-wide mb-1">Email</span>
-                <a href="mailto:info@dahausa.org" className="hover:text-white transition-colors">
-                  info@dahausa.org
+                <a href="mailto:emails@dahausainitiative.org" className="hover:text-white transition-colors">
+                  emails@dahausainitiative.org
                 </a>
               </p>
               <p className="text-sm text-gray-400">
