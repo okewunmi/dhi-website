@@ -160,8 +160,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Add your Google Search Console verification code here after setting it up
-    google: "google-site-verification=ie7gDiaTymbvvS50g9YggQ0cYOGlp9rm5tMw0jQZuSc",
+    google: "ie7gDiaTymbvvS50g9YggQ0cYOGlp9rm5tMw0jQZuSc",
   },
 };
 
