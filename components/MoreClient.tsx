@@ -40,7 +40,7 @@ export default function MoreClient({
 
   const resourceList = (resourcesData?.resources as Resource[]) || [];
   const showContactForm = (contactData?.show_contact_form as boolean) ?? true;
-  const contactEmail = (contactData?.email as string) || "info@dahausa.org";
+  const contactEmail = (contactData?.email as string) || "emails@dahausainitiative.org";
   const contactAddress = (contactData?.address as string) || "FCT, Nigeria";
 
   const handleSubscribe = async (e: React.FormEvent) => {
