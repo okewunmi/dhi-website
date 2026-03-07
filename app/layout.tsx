@@ -93,7 +93,7 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dhinitiative.netlify.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dahausainitiative.org/";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
