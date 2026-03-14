@@ -30,20 +30,30 @@
 //     setMobileOpen(false);
 //   }, [pathname]);
 
+//   // Prevent body scroll when mobile menu is open
+//   useEffect(() => {
+//     if (mobileOpen) {
+//       document.body.style.overflow = "hidden";
+//     } else {
+//       document.body.style.overflow = "";
+//     }
+//     return () => { document.body.style.overflow = ""; };
+//   }, [mobileOpen]);
+
 //   return (
 //     <header
 //       className={cn(
 //         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-//         scrolled
-//           ? "bg-white border-b border-[#E8E8E8] shadow-sm"
-//           : "bg-white border-b border-[#E8E8E8]"
+//         scrolled ? "bg-white shadow-sm" : "bg-white",
+//         "border-b border-[#E8E8E8]"
 //       )}
 //     >
 //       <div className="container-dhi">
-//         <div className="flex items-center justify-between h-[70px]">
+//         <div className="flex items-center justify-between h-[64px] md:h-[70px]">
+
 //           {/* Logo */}
-//           <Link href="/" className="flex items-center gap-3 flex-shrink-0">
-//             <div className="relative w-[120px] h-[90px]">
+//           <Link href="/" className="flex items-center flex-shrink-0">
+//             <div className="relative w-[80px] h-[56px] md:w-[80px] md:h-[56px]">
 //               <Image
 //                 src="/logo.jpeg"
 //                 alt="Da Hausa Initiative"
@@ -55,13 +65,13 @@
 //           </Link>
 
 //           {/* Desktop Nav */}
-//           <nav className="hidden lg:flex items-center gap-8">
+//           <nav className="hidden lg:flex items-center gap-7 xl:gap-8">
 //             {NAV_LINKS.map((link) => (
 //               <Link
 //                 key={link.href}
 //                 href={link.href}
 //                 className={cn(
-//                   "nav-link",
+//                   "nav-link text-sm",
 //                   pathname === link.href && "active text-brand-orange border-brand-orange"
 //                 )}
 //               >
@@ -70,42 +80,49 @@
 //             ))}
 //           </nav>
 
-//           {/* CTA + Mobile Toggle */}
-//           <div className="flex items-center gap-3">
-//             <Link href="/apply" className="hidden lg:inline-flex btn-primary text-sm">
+//           {/* Desktop CTA (hidden on mobile — already in mobile menu) */}
+//           <div className="hidden lg:flex items-center">
+//             <Link href="/apply" className="btn-primary text-sm">
 //               Apply Now
 //             </Link>
-//             <button
-//               onClick={() => setMobileOpen(!mobileOpen)}
-//               className="lg:hidden p-2 text-black"
-//               aria-label="Toggle menu"
-//             >
-//               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-//             </button>
 //           </div>
+
+//           {/* Mobile hamburger only */}
+//           <button
+//             onClick={() => setMobileOpen(!mobileOpen)}
+//             className="lg:hidden p-2 text-black rounded hover:bg-[#F5F5F5] transition-colors"
+//             aria-label="Toggle menu"
+//             aria-expanded={mobileOpen}
+//           >
+//             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+//           </button>
 //         </div>
 //       </div>
 
-//       {/* Mobile Nav */}
+//       {/* Mobile Nav Drawer */}
 //       {mobileOpen && (
 //         <div className="lg:hidden bg-white border-t border-[#E8E8E8] animate-fade-in">
-//           <div className="container-dhi py-4">
+//           <div className="container-dhi py-2 pb-6">
 //             {NAV_LINKS.map((link) => (
 //               <Link
 //                 key={link.href}
 //                 href={link.href}
 //                 className={cn(
-//                   "block py-3 px-2 text-sm font-medium border-b border-[#F5F5F5] uppercase tracking-wide",
+//                   "flex items-center py-3.5 px-2 text-sm font-medium border-b border-[#F5F5F5] uppercase tracking-wide transition-colors",
 //                   pathname === link.href
-//                     ? "text-brand-orange"
-//                     : "text-black hover:text-brand-orange"
+//                     ? "text-[#BF4E14]"
+//                     : "text-black hover:text-[#BF4E14]"
 //                 )}
 //               >
+//                 {pathname === link.href && (
+//                   <span className="w-1.5 h-1.5 rounded-full bg-[#BF4E14] mr-3 flex-shrink-0" />
+//                 )}
 //                 {link.label}
 //               </Link>
 //             ))}
-//             <div className="pt-4">
-//               <Link href="/apply" className="btn-primary w-full justify-center">
+//             {/* Apply button inside mobile menu */}
+//             <div className="pt-5">
+//               <Link href="/apply" className="btn-primary w-full justify-center text-sm">
 //                 Apply Now
 //               </Link>
 //             </div>
@@ -129,6 +146,7 @@ const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/programmes", label: "Programmes" },
+  { href: "/events", label: "Events" },
   { href: "/apply", label: "Apply / Register" },
   { href: "/more", label: "More" },
 ];
@@ -148,7 +166,6 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden";
@@ -183,7 +200,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-7 xl:gap-8">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-7">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
@@ -198,14 +215,14 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Desktop CTA (hidden on mobile — already in mobile menu) */}
+          {/* Desktop CTA */}
           <div className="hidden lg:flex items-center">
             <Link href="/apply" className="btn-primary text-sm">
               Apply Now
             </Link>
           </div>
 
-          {/* Mobile hamburger only */}
+          {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 text-black rounded hover:bg-[#F5F5F5] transition-colors"
@@ -238,7 +255,6 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            {/* Apply button inside mobile menu */}
             <div className="pt-5">
               <Link href="/apply" className="btn-primary w-full justify-center text-sm">
                 Apply Now
