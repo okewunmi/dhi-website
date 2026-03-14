@@ -472,131 +472,670 @@
 //   );
 // }
 
+
+
+// "use client";
+
+// import { useState, useEffect, useCallback } from "react";
+// import {
+//   Save, Upload, ChevronDown, ChevronUp,
+//   Plus, Trash2, Edit2, X, RefreshCw, Check, Database
+// } from "lucide-react";
+// import toast from "react-hot-toast";
+
+// // ─── Default templates per section (used when DB row is empty) ─
+// const SECTION_DEFAULTS: Record<string, Record<string, unknown>> = {
+//   hero: {
+//     headline: "Simplifying Concepts,\nStrengthening Communities",
+//     subheadline: "Da Hausa Initiative (DHI) works to improve financial and data literacy across Hausa-speaking communities in Northern Nigeria.",
+//     cta_primary_text: "Apply Now",
+//     cta_primary_link: "/apply",
+//     cta_secondary_text: "Our Programmes",
+//     cta_secondary_link: "/programmes",
+//     image_url: "",
+//   },
+//   pillars: {
+//     headline: "Our Two Pillars",
+//     pillars: [
+//       { title: "Financial Literacy", description: "Equipping individuals and households with the knowledge to manage money and build financial resilience.", icon: "TrendingUp" },
+//       { title: "Data Literacy", description: "Building capacity to understand, interpret, and use data across Hausa-speaking communities.", icon: "BarChart2" },
+//     ],
+//   },
+//   approaches: {
+//     headline: "How We Work",
+//     approaches: [
+//       { title: "Research", description: "Generating evidence on the financial and data needs of Northern Nigerian communities." },
+//       { title: "Training", description: "Delivering practical, community-rooted programmes that build real skills." },
+//       { title: "Advocacy", description: "Influencing policy and practice to create systemic change." },
+//     ],
+//   },
+//   about_preview: {
+//     headline: "About Da Hausa Initiative",
+//     body: "Da Hausa Initiative (DHI) exists to address the literacy gaps that hold communities back. We focus on Northern Nigeria — a region rich in potential but historically underserved by mainstream financial and digital systems.",
+//     cta_text: "Learn More About Us",
+//     cta_link: "/about",
+//     image_url: "",
+//   },
+//   home_videos: {
+//     headline: "From Our Channel",
+//     subheadline: "Watch our latest videos on financial and data literacy — in Hausa and English.",
+//     videos: [
+//       { title: "Video Title Here", description: "Short description of this video.", youtube_url: "", duration: "", date: "" },
+//       { title: "Video Title Here", description: "Short description of this video.", youtube_url: "", duration: "", date: "" },
+//       { title: "Video Title Here", description: "Short description of this video.", youtube_url: "", duration: "", date: "" },
+//     ],
+//   },
+//   newsletter_cta: {
+//     headline: "Stay Connected",
+//     body: "Join our newsletter for updates on programmes, research, and resources tailored for Northern Nigeria.",
+//     cta_text: "Subscribe to Newsletter",
+//     cta_link: "/more#newsletter",
+//   },
+//   why_dhi: {
+//     headline: "Why DHI Exists",
+//     body: "Northern Nigeria is home to millions of Hausa-speaking people who are largely excluded from mainstream financial systems and digital literacy programmes.",
+//   },
+//   what_we_do: {
+//     headline: "What We Work On",
+//     items: [
+//       { title: "Financial Literacy", description: "Teaching practical money management in a culturally relevant way." },
+//       { title: "Data Literacy", description: "Equipping individuals with the ability to read, interpret, and use data effectively." },
+//     ],
+//   },
+//   how_we_work: {
+//     headline: "How DHI Works",
+//     body: "We operate through three complementary approaches — Research, Training, and Advocacy — that together create lasting change.",
+//     approaches: [
+//       { title: "Research", description: "We generate evidence on community needs, programme effectiveness, and policy gaps." },
+//       { title: "Training", description: "We design and deliver practical, affordable, and accessible training programmes." },
+//       { title: "Advocacy", description: "We use our research to advocate for policies that expand access to literacy." },
+//     ],
+//   },
+//   focus_area: {
+//     headline: "Our Focus: Northern Nigeria",
+//     body: "DHI's work is rooted in the Hausa-speaking communities of Northern Nigeria. We understand the cultural, linguistic, and economic context of this region.",
+//     image_url: "",
+//   },
+//   financial_literacy: {
+//     headline: "Financial Literacy Programmes",
+//     description: "Helping individuals and households understand money, build skills, and make confident financial decisions.",
+//     programmes: [
+//       { title: "Future Focus with Lailah", subtitle: "Podcast", description: "A podcast series exploring personal finance for Hausa-speaking audiences.", cta_text: "Listen Now", cta_link: "#", badge: "Podcast", status: "active" },
+//       { title: "Home CFO Course", subtitle: "Online Course", description: "A structured course teaching households to manage money like a CFO.", cta_text: "Apply Now", cta_link: "/apply", badge: "Course", status: "active" },
+//       { title: "15-Minute Clarity Calls", subtitle: "1-on-1 Coaching", description: "Short coaching calls giving individuals clear financial next steps.", cta_text: "Register Interest", cta_link: "/apply", badge: "Coaching", status: "active" },
+//     ],
+//   },
+//   data_literacy: {
+//     headline: "Data Literacy Programmes",
+//     description: "Building the capacity to understand, use, and advocate with data.",
+//     programmes: [
+//       { title: "Hausa Tech Training Scholarship", subtitle: "Scholarship", description: "A scholarship for data analysis training for qualified applicants.", cta_text: "Apply for Scholarship", cta_link: "/apply", badge: "Scholarship", status: "active" },
+//       { title: "Research on Data in Northern Nigeria", subtitle: "Research", description: "Ongoing research on how data is produced and used in Northern Nigeria.", cta_text: "View Research", cta_link: "/more#resources", badge: "Research", status: "active" },
+//       { title: "Hausa Excel & Power BI Videos", subtitle: "Video Learning", description: "Tutorial videos in Hausa making data skills accessible.", cta_text: "Watch on YouTube", cta_link: "#", badge: "Videos", status: "active" },
+//     ],
+//   },
+//   resources: {
+//     headline: "Resources",
+//     description: "Explore our collection of podcasts, videos, research papers, and more.",
+//     resources: [
+//       { title: "Future Focus with Lailah", type: "Podcast", description: "Listen to our financial literacy podcast series.", link: "#", icon: "Mic" },
+//       { title: "Hausa Excel & Power BI Videos", type: "Videos", description: "Data literacy video tutorials in Hausa on YouTube.", link: "#", icon: "Youtube" },
+//       { title: "Policy Papers", type: "Research", description: "Research and policy papers on financial and data literacy.", link: "#", icon: "FileText" },
+//       { title: "DHI Documentary", type: "Documentary", description: "A documentary on our work and community impact. Coming soon.", link: "#", icon: "Film", coming_soon: true },
+//     ],
+//   },
+//   contact: {
+//     headline: "Get in Touch",
+//     description: "Have a question, partnership inquiry, or want to learn more about our work?",
+//     email: "info@dahausa.org",
+//     address: "FCT, Nigeria",
+//     show_contact_form: true,
+//   },
+// };
+
+// interface CmsEditorClientProps {
+//   page: string;
+//   sections: Record<string, string>;
+// }
+
+// // ─── Value preview (read mode) ────────────────────────────────
+// function ValuePreview({ value }: { value: unknown }) {
+//   if (value === null || value === undefined || value === "") {
+//     return <span className="text-gray-300 italic text-xs">Empty</span>;
+//   }
+//   if (typeof value === "boolean") {
+//     return <span className={`text-xs font-semibold ${value ? "text-green-600" : "text-red-500"}`}>{value ? "Yes" : "No"}</span>;
+//   }
+//   if (Array.isArray(value)) {
+//     const arr = value as Record<string, unknown>[];
+//     return (
+//       <span className="text-xs text-gray-500 flex flex-wrap gap-1 items-center">
+//         <span className="font-semibold text-black">{arr.length} item{arr.length !== 1 ? "s" : ""}</span>
+//         {arr.slice(0, 3).map((item, i) => (
+//           <span key={i} className="inline-block bg-[#F5F5F5] border border-[#E8E8E8] text-[10px] px-2 py-0.5 rounded">
+//             {String(item.title || item.name || `Item ${i + 1}`).slice(0, 28)}
+//           </span>
+//         ))}
+//         {arr.length > 3 && <span className="text-[10px] text-gray-400">+{arr.length - 3} more</span>}
+//       </span>
+//     );
+//   }
+//   if (typeof value === "string" && value.match(/\.(jpg|jpeg|png|webp|gif)/i)) {
+//     return (
+//       // eslint-disable-next-line @next/next/no-img-element
+//       <img src={value} alt="" className="h-10 object-cover border border-[#E8E8E8]"
+//         onError={(e) => { e.currentTarget.style.display = "none"; }} />
+//     );
+//   }
+//   const str = String(value);
+//   return <span className="text-sm text-black">{str.length > 120 ? str.slice(0, 120) + "…" : str}</span>;
+// }
+
+// // ─── Field editor (edit mode) ─────────────────────────────────
+// function FieldEditor({ fieldKey, value, onChange }: {
+//   fieldKey: string; value: unknown; onChange: (val: unknown) => void;
+// }) {
+//   const [uploading, setUploading] = useState(false);
+
+//   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const file = e.target.files?.[0];
+//     if (!file) return;
+//     setUploading(true);
+//     try {
+//       const fd = new FormData();
+//       fd.append("file", file);
+//       const res = await fetch("/api/upload", { method: "POST", body: fd });
+//       const d = await res.json();
+//       if (res.ok) { onChange(d.url); toast.success("Image uploaded."); }
+//       else toast.error(d.error || "Upload failed.");
+//     } catch { toast.error("Upload error."); }
+//     finally { setUploading(false); }
+//   };
+
+//   if (Array.isArray(value)) {
+//     const arr = value as Record<string, unknown>[];
+//     return (
+//       <div className="space-y-3">
+//         {arr.map((item, i) => (
+//           <div key={i} className="border border-[#E8E8E8] bg-[#FAFAFA] p-4">
+//             <div className="flex items-center justify-between mb-3">
+//               <span className="text-xs font-bold text-[#BF4E14] uppercase tracking-wide">Item {i + 1}</span>
+//               <button type="button"
+//                 onClick={() => { const a = [...arr]; a.splice(i, 1); onChange(a); }}
+//                 className="p-1 text-red-400 hover:text-red-600" title="Remove item">
+//                 <Trash2 size={13} />
+//               </button>
+//             </div>
+//             <div className="space-y-3">
+//               {Object.entries(item).map(([k, v]) => (
+//                 <div key={k}>
+//                   <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wide block mb-1">
+//                     {k.replace(/_/g, " ")}
+//                   </label>
+//                   {typeof v === "boolean" ? (
+//                     <select value={String(v)} className="input-dhi text-sm py-1.5"
+//                       onChange={(e) => { const a = [...arr]; a[i] = { ...a[i], [k]: e.target.value === "true" }; onChange(a); }}>
+//                       <option value="true">Yes / Show</option>
+//                       <option value="false">No / Hide</option>
+//                     </select>
+//                   ) : typeof v === "string" && (v.length > 80 || ["description", "body"].includes(k)) ? (
+//                     <textarea value={v} rows={2} className="input-dhi text-sm py-1.5 resize-none"
+//                       onChange={(e) => { const a = [...arr]; a[i] = { ...a[i], [k]: e.target.value }; onChange(a); }} />
+//                   ) : (
+//                     <input value={String(v ?? "")} className="input-dhi text-sm py-1.5"
+//                       onChange={(e) => { const a = [...arr]; a[i] = { ...a[i], [k]: e.target.value }; onChange(a); }} />
+//                   )}
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         ))}
+//         <button type="button"
+//           onClick={() => {
+//             const template = arr[0] ? Object.fromEntries(Object.keys(arr[0]).map(k => [k, typeof arr[0][k] === "boolean" ? false : ""])) : {};
+//             onChange([...arr, template]);
+//           }}
+//           className="flex items-center gap-2 text-sm text-[#BF4E14] font-semibold hover:underline">
+//           <Plus size={14} /> Add Item
+//         </button>
+//       </div>
+//     );
+//   }
+
+//   if (fieldKey.includes("image_url") || fieldKey.endsWith("_image")) {
+//     const imgStr = typeof value === "string" ? value : "";
+//     return (
+//       <div className="space-y-2">
+//         <input type="text" value={imgStr} className="input-dhi text-sm py-2"
+//           placeholder="Paste image URL or upload" onChange={(e) => onChange(e.target.value)} />
+//         <label className="inline-flex items-center gap-2 cursor-pointer text-xs text-[#BF4E14] font-semibold hover:underline">
+//           <Upload size={12} />{uploading ? "Uploading…" : "Upload Image"}
+//           <input type="file" accept="image/*" className="hidden" disabled={uploading} onChange={handleImageUpload} />
+//         </label>
+//         {imgStr && (
+//           // eslint-disable-next-line @next/next/no-img-element
+//           <img src={imgStr} alt="Preview" className="h-20 object-cover border border-[#E8E8E8]"
+//             onError={(e) => { e.currentTarget.style.display = "none"; }} />
+//         )}
+//       </div>
+//     );
+//   }
+
+//   if (typeof value === "boolean") {
+//     return (
+//       <select value={String(value)} onChange={(e) => onChange(e.target.value === "true")} className="input-dhi text-sm py-2">
+//         <option value="true">Yes / Show</option>
+//         <option value="false">No / Hide</option>
+//       </select>
+//     );
+//   }
+
+//   if (typeof value === "string" && (value.length > 80 || ["body", "description", "subheadline"].includes(fieldKey))) {
+//     return <textarea value={value} rows={4} onChange={(e) => onChange(e.target.value)} className="input-dhi text-sm py-2 resize-y" />;
+//   }
+
+//   // Plain nested object — render as indented sub-fields
+//   if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+//     const obj = value as Record<string, unknown>;
+//     return (
+//       <div className="border border-[#E8E8E8] bg-[#FAFAFA] p-4 space-y-3">
+//         {Object.entries(obj).map(([k, v]) => (
+//           <div key={k}>
+//             <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wide block mb-1">{k.replace(/_/g, " ")}</label>
+//             <FieldEditor fieldKey={k} value={v} onChange={(nv) => onChange({ ...obj, [k]: nv })} />
+//           </div>
+//         ))}
+//       </div>
+//     );
+//   }
+
+//   // Short text fallback
+//   return <input type="text" value={typeof value === "string" || typeof value === "number" ? String(value) : ""} onChange={(e) => onChange(e.target.value)} className="input-dhi text-sm py-2" />;
+// }
+
+// // ─── Section editor ───────────────────────────────────────────
+// function SectionEditor({ page, sectionKey, sectionLabel }: {
+//   page: string; sectionKey: string; sectionLabel: string;
+// }) {
+//   const [savedData, setSavedData] = useState<Record<string, unknown> | null>(null);
+//   const [draftData, setDraftData] = useState<Record<string, unknown>>({});
+//   const [open, setOpen] = useState(false);
+//   const [editing, setEditing] = useState(false);
+//   const [loading, setLoading] = useState(false);
+//   const [saving, setSaving] = useState(false);
+//   const [fetchError, setFetchError] = useState<string | null>(null);
+
+//   const fetchData = useCallback(async () => {
+//     setLoading(true);
+//     setFetchError(null);
+//     try {
+//       const res = await fetch(`/api/cms?page=${encodeURIComponent(page)}&section=${encodeURIComponent(sectionKey)}`);
+//       const json = await res.json();
+//       if (!res.ok) {
+//         setFetchError(json.error || `HTTP ${res.status}`);
+//         setSavedData({});
+//         setDraftData({});
+//         return;
+//       }
+//       const content = json.content as Record<string, unknown>;
+//       setSavedData(content);
+//       setDraftData({ ...content });
+//     } catch (err) {
+//       setFetchError("Network error — check your connection.");
+//       setSavedData({});
+//       setDraftData({});
+//     } finally {
+//       setLoading(false);
+//     }
+//   }, [page, sectionKey]);
+
+//   useEffect(() => {
+//     if (open && savedData === null) fetchData();
+//   }, [open, savedData, fetchData]);
+
+//   const handleInitialize = () => {
+//     const defaults = SECTION_DEFAULTS[sectionKey] || {};
+//     setDraftData({ ...defaults });
+//     setEditing(true);
+//   };
+
+//   const handleSave = async () => {
+//     setSaving(true);
+//     try {
+//       const res = await fetch("/api/cms", {
+//         method: "PUT",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ page, section: sectionKey, content: draftData }),
+//       });
+//       const json = await res.json();
+//       if (res.ok) {
+//         setSavedData({ ...draftData });
+//         setEditing(false);
+//         toast.success(`"${sectionLabel}" saved successfully.`);
+//       } else {
+//         toast.error(json.error || "Save failed — please try again.");
+//       }
+//     } catch {
+//       toast.error("Save failed — check your connection.");
+//     } finally {
+//       setSaving(false);
+//     }
+//   };
+
+//   const handleCancel = () => {
+//     setDraftData(savedData || {});
+//     setEditing(false);
+//   };
+
+//   const isEmpty = savedData !== null && Object.keys(savedData).length === 0;
+//   const hasData = savedData !== null && Object.keys(savedData).length > 0;
+
+//   return (
+//     <div className="bg-white border border-[#E8E8E8] overflow-hidden">
+//       {/* Header */}
+//       <button onClick={() => setOpen(!open)}
+//         className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#FAFAFA] transition-colors text-left">
+//         <div className="flex items-center gap-3">
+//           <div className={`w-2 h-2 rounded-full flex-shrink-0 ${hasData ? "bg-[#BF4E14]" : "bg-gray-300"}`} />
+//           <span className="font-semibold text-black text-sm">{sectionLabel}</span>
+//           <span className="text-xs text-gray-400">
+//             {savedData === null ? "click to load" : hasData ? `${Object.keys(savedData).length} fields` : "no data"}
+//           </span>
+//         </div>
+//         <div className="flex items-center gap-2">
+//           {open && hasData && !editing && (
+//             <span role="button" onClick={(e) => { e.stopPropagation(); setEditing(true); setDraftData({ ...savedData }); }}
+//               className="flex items-center gap-1 text-xs text-[#BF4E14] font-semibold hover:underline px-2 py-1">
+//               <Edit2 size={11} /> Edit
+//             </span>
+//           )}
+//           {open ? <ChevronUp size={15} className="text-gray-400 flex-shrink-0" /> : <ChevronDown size={15} className="text-gray-400 flex-shrink-0" />}
+//         </div>
+//       </button>
+
+//       {open && (
+//         <div className="border-t border-[#E8E8E8]">
+
+//           {/* Loading */}
+//           {loading && (
+//             <div className="flex items-center gap-2 px-5 py-8 text-sm text-gray-400">
+//               <RefreshCw size={13} className="animate-spin" /> Loading from database…
+//             </div>
+//           )}
+
+//           {/* Error */}
+//           {!loading && fetchError && (
+//             <div className="px-5 py-6">
+//               <p className="text-sm text-red-500 mb-1 font-semibold">Failed to load</p>
+//               <p className="text-xs text-gray-400 mb-3">{fetchError}</p>
+//               <button onClick={fetchData} className="text-xs text-[#BF4E14] font-semibold hover:underline flex items-center gap-1">
+//                 <RefreshCw size={11} /> Retry
+//               </button>
+//             </div>
+//           )}
+
+//           {/* Empty — no row in DB yet */}
+//           {!loading && !fetchError && isEmpty && (
+//             <div className="px-5 py-8 text-center">
+//               <Database size={28} className="text-gray-300 mx-auto mb-3" />
+//               <p className="text-sm font-semibold text-black mb-1">No content saved yet</p>
+//               <p className="text-xs text-gray-400 mb-5">
+//                 This section has no data in the database. Initialize it with default content to get started.
+//               </p>
+//               <button onClick={handleInitialize}
+//                 className="btn-primary text-sm">
+//                 <Plus size={14} /> Initialize with Defaults
+//               </button>
+//             </div>
+//           )}
+
+//           {/* Read mode — show saved values */}
+//           {!loading && !fetchError && hasData && !editing && (
+//             <div className="p-5">
+//               <div className="divide-y divide-[#F5F5F5] mb-5">
+//                 {Object.entries(savedData!).map(([key, val]) => (
+//                   <div key={key} className="py-3 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4">
+//                     <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide sm:w-36 flex-shrink-0 pt-0.5">
+//                       {key.replace(/_/g, " ")}
+//                     </span>
+//                     <div className="flex-1 min-w-0"><ValuePreview value={val} /></div>
+//                   </div>
+//                 ))}
+//               </div>
+//               <div className="flex items-center gap-3 pt-3 border-t border-[#F5F5F5]">
+//                 <button onClick={() => { setEditing(true); setDraftData({ ...savedData! }); }} className="btn-primary text-sm">
+//                   <Edit2 size={13} /> Edit Section
+//                 </button>
+//                 <button onClick={fetchData} title="Reload from database"
+//                   className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-[#BF4E14] transition-colors">
+//                   <RefreshCw size={11} /> Refresh
+//                 </button>
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Edit mode */}
+//           {!loading && !fetchError && editing && (
+//             <div className="p-5">
+//               <div className="flex items-center justify-between mb-5 pb-3 border-b border-[#F5F5F5]">
+//                 <span className="text-xs font-bold text-[#BF4E14] uppercase tracking-wide flex items-center gap-1.5">
+//                   <Edit2 size={11} /> Editing: {sectionLabel}
+//                 </span>
+//                 <button onClick={handleCancel} className="flex items-center gap-1 text-xs text-gray-400 hover:text-black">
+//                   <X size={11} /> Cancel
+//                 </button>
+//               </div>
+
+//               <div className="space-y-6">
+//                 {Object.entries(draftData).map(([key, val]) => (
+//                   <div key={key}>
+//                     <label className="label-dhi mb-1.5 block">{key.replace(/_/g, " ")}</label>
+//                     <FieldEditor fieldKey={key} value={val}
+//                       onChange={(newVal) => setDraftData((prev) => ({ ...prev, [key]: newVal }))} />
+//                   </div>
+//                 ))}
+//               </div>
+
+//               <div className="flex items-center gap-3 mt-8 pt-5 border-t border-[#F5F5F5]">
+//                 <button onClick={handleSave} disabled={saving} className="btn-primary">
+//                   {saving
+//                     ? <><RefreshCw size={13} className="animate-spin" /> Saving…</>
+//                     : <><Check size={13} /> Save Changes</>}
+//                 </button>
+//                 <button onClick={handleCancel} className="btn-secondary text-sm">Discard</button>
+//               </div>
+//             </div>
+//           )}
+
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// // ─── Main export ──────────────────────────────────────────────
+// export default function CmsEditorClient({ page, sections }: CmsEditorClientProps) {
+//   return (
+//     <div className="space-y-3">
+//       <p className="text-sm text-gray-400 mb-4">
+//         Expand any section to view its current content. Sections marked with a grey dot have no saved data — click to initialize them.
+//       </p>
+//       {Object.entries(sections).map(([sectionKey, sectionLabel]) => (
+//         <SectionEditor key={sectionKey} page={page} sectionKey={sectionKey} sectionLabel={sectionLabel} />
+//       ))}
+//     </div>
+//   );
+// }
+
+
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
 import {
-  Save, Upload, ChevronDown, ChevronUp,
+  Upload, ChevronDown, ChevronUp,
   Plus, Trash2, Edit2, X, RefreshCw, Check, Database
 } from "lucide-react";
 import toast from "react-hot-toast";
 
-// ─── Default templates per section (used when DB row is empty) ─
-const SECTION_DEFAULTS: Record<string, Record<string, unknown>> = {
-  hero: {
+// ─── Page-specific defaults ───────────────────────────────────
+// Key format: "page:sectionKey"
+const PAGE_SECTION_DEFAULTS: Record<string, Record<string, unknown>> = {
+
+  "home:hero": {
     headline: "Simplifying Concepts,\nStrengthening Communities",
-    subheadline: "Da Hausa Initiative (DHI) works to improve financial and data literacy across Hausa-speaking communities in Northern Nigeria.",
-    cta_primary_text: "Apply Now",
-    cta_primary_link: "/apply",
-    cta_secondary_text: "Our Programmes",
-    cta_secondary_link: "/programmes",
+    subheadline: "Da Hausa Initiative (DHI) works to improve financial and data literacy across Hausa-speaking communities in Northern Nigeria — through research, training, and advocacy.",
+    cta_primary_text: "Explore Programmes",
+    cta_primary_link: "/programmes",
+    cta_secondary_text: "Apply / Register",
+    cta_secondary_link: "/apply",
     image_url: "",
   },
-  pillars: {
+  "home:pillars": {
     headline: "Our Two Pillars",
+    subheadline: "Everything we do at DHI is built around two interconnected disciplines.",
     pillars: [
-      { title: "Financial Literacy", description: "Equipping individuals and households with the knowledge to manage money and build financial resilience.", icon: "TrendingUp" },
-      { title: "Data Literacy", description: "Building capacity to understand, interpret, and use data across Hausa-speaking communities.", icon: "BarChart2" },
+      { title: "Financial Literacy", description: "Equipping individuals and households with the practical knowledge to manage money, plan for the future, and build financial resilience — in a way that is culturally relevant to Northern Nigeria.", icon: "TrendingUp" },
+      { title: "Data Literacy", description: "Building the capacity of communities, organisations, and individuals to understand, interpret, and use data — from reading a chart to analysing a spreadsheet in Hausa.", icon: "BarChart2" },
     ],
   },
-  approaches: {
+  "home:approaches": {
     headline: "How We Work",
+    subheadline: "Three complementary approaches that create lasting, systemic change.",
     approaches: [
-      { title: "Research", description: "Generating evidence on the financial and data needs of Northern Nigerian communities." },
-      { title: "Training", description: "Delivering practical, community-rooted programmes that build real skills." },
-      { title: "Advocacy", description: "Influencing policy and practice to create systemic change." },
+      { title: "Research", description: "We generate evidence on the financial and data literacy needs of Northern Nigerian communities, and use that evidence to design better programmes." },
+      { title: "Training", description: "We deliver practical, affordable, and accessible training — through courses, coaching, scholarships, and video content in Hausa and English." },
+      { title: "Advocacy", description: "We use our research and programme insights to advocate for policies and practices that expand access to financial and data literacy across the region." },
     ],
   },
-  about_preview: {
+  "home:about_preview": {
     headline: "About Da Hausa Initiative",
-    body: "Da Hausa Initiative (DHI) exists to address the literacy gaps that hold communities back. We focus on Northern Nigeria — a region rich in potential but historically underserved by mainstream financial and digital systems.",
-    cta_text: "Learn More About Us",
+    body: "Da Hausa Initiative (DHI) was founded to address the literacy gaps that hold Northern Nigerian communities back. We believe that when people understand money and data, they can make better decisions — for themselves, their families, and their communities.\n\nOur work is rooted in the Hausa-speaking communities of Northern Nigeria, where we operate across three areas: research, training, and advocacy.",
+    cta_text: "Learn More About DHI",
     cta_link: "/about",
     image_url: "",
   },
-  home_videos: {
+  "home:home_videos": {
     headline: "From Our Channel",
-    subheadline: "Watch our latest videos on financial and data literacy — in Hausa and English.",
+    subheadline: "Watch our latest videos on financial and data literacy — in Hausa and English. New content every month.",
     videos: [
-      { title: "Video Title Here", description: "Short description of this video.", youtube_url: "", duration: "", date: "" },
-      { title: "Video Title Here", description: "Short description of this video.", youtube_url: "", duration: "", date: "" },
-      { title: "Video Title Here", description: "Short description of this video.", youtube_url: "", duration: "", date: "" },
+      { title: "Introduction to Home Budgeting", description: "A practical introduction to managing your household finances — step by step, in plain language.", youtube_url: "", duration: "", date: "" },
+      { title: "Excel for Beginners – In Hausa", description: "Learn the basics of Microsoft Excel, taught entirely in Hausa for Northern Nigerian audiences.", youtube_url: "", duration: "", date: "" },
+      { title: "Future Focus with Lailah – Ep. 1", description: "The first episode of our financial literacy podcast series — now on YouTube.", youtube_url: "", duration: "", date: "" },
     ],
   },
-  newsletter_cta: {
+  "home:newsletter_cta": {
     headline: "Stay Connected",
-    body: "Join our newsletter for updates on programmes, research, and resources tailored for Northern Nigeria.",
-    cta_text: "Subscribe to Newsletter",
+    body: "Join thousands of people across Northern Nigeria receiving updates on our programmes, research findings, and free resources. We send emails monthly — no spam, ever.",
+    cta_text: "Subscribe to the Newsletter",
     cta_link: "/more#newsletter",
   },
-  why_dhi: {
-    headline: "Why DHI Exists",
-    body: "Northern Nigeria is home to millions of Hausa-speaking people who are largely excluded from mainstream financial systems and digital literacy programmes.",
-  },
-  what_we_do: {
-    headline: "What We Work On",
-    items: [
-      { title: "Financial Literacy", description: "Teaching practical money management in a culturally relevant way." },
-      { title: "Data Literacy", description: "Equipping individuals with the ability to read, interpret, and use data effectively." },
-    ],
-  },
-  how_we_work: {
-    headline: "How DHI Works",
-    body: "We operate through three complementary approaches — Research, Training, and Advocacy — that together create lasting change.",
-    approaches: [
-      { title: "Research", description: "We generate evidence on community needs, programme effectiveness, and policy gaps." },
-      { title: "Training", description: "We design and deliver practical, affordable, and accessible training programmes." },
-      { title: "Advocacy", description: "We use our research to advocate for policies that expand access to literacy." },
-    ],
-  },
-  focus_area: {
-    headline: "Our Focus: Northern Nigeria",
-    body: "DHI's work is rooted in the Hausa-speaking communities of Northern Nigeria. We understand the cultural, linguistic, and economic context of this region.",
+
+  "about:hero": {
+    headline: "About Da Hausa Initiative",
+    subheadline: "We exist to close the financial and data literacy gap in Northern Nigeria — through research, training, and community-rooted advocacy.",
     image_url: "",
   },
-  financial_literacy: {
-    headline: "Financial Literacy Programmes",
-    description: "Helping individuals and households understand money, build skills, and make confident financial decisions.",
-    programmes: [
-      { title: "Future Focus with Lailah", subtitle: "Podcast", description: "A podcast series exploring personal finance for Hausa-speaking audiences.", cta_text: "Listen Now", cta_link: "#", badge: "Podcast", status: "active" },
-      { title: "Home CFO Course", subtitle: "Online Course", description: "A structured course teaching households to manage money like a CFO.", cta_text: "Apply Now", cta_link: "/apply", badge: "Course", status: "active" },
-      { title: "15-Minute Clarity Calls", subtitle: "1-on-1 Coaching", description: "Short coaching calls giving individuals clear financial next steps.", cta_text: "Register Interest", cta_link: "/apply", badge: "Coaching", status: "active" },
+  "about:why_dhi": {
+    headline: "Why DHI Exists",
+    body: "Northern Nigeria is home to over 70 million Hausa-speaking people — one of the largest language communities in Africa. Yet the region remains significantly underserved by mainstream financial education systems and digital literacy programmes.\n\nMost financial content is written in English, designed for urban professionals, and disconnected from the economic realities of Hausa-speaking communities. Da Hausa Initiative was founded to change that.\n\nWe believe that access to financial and data literacy is not a privilege — it is a right. And we are committed to making it available to every community in Northern Nigeria.",
+  },
+  "about:what_we_do": {
+    headline: "What We Work On",
+    subheadline: "DHI's work is focused on two interconnected disciplines that together build individual and community resilience.",
+    items: [
+      { title: "Financial Literacy", description: "We design and deliver financial education programmes that are practical, culturally relevant, and accessible to Hausa-speaking audiences — covering household budgeting, savings, debt management, and long-term planning." },
+      { title: "Data Literacy", description: "We equip individuals and organisations with the ability to read, interpret, and use data effectively — from understanding charts to using tools like Excel and Power BI, all taught in Hausa." },
     ],
   },
-  data_literacy: {
-    headline: "Data Literacy Programmes",
-    description: "Building the capacity to understand, use, and advocate with data.",
-    programmes: [
-      { title: "Hausa Tech Training Scholarship", subtitle: "Scholarship", description: "A scholarship for data analysis training for qualified applicants.", cta_text: "Apply for Scholarship", cta_link: "/apply", badge: "Scholarship", status: "active" },
-      { title: "Research on Data in Northern Nigeria", subtitle: "Research", description: "Ongoing research on how data is produced and used in Northern Nigeria.", cta_text: "View Research", cta_link: "/more#resources", badge: "Research", status: "active" },
-      { title: "Hausa Excel & Power BI Videos", subtitle: "Video Learning", description: "Tutorial videos in Hausa making data skills accessible.", cta_text: "Watch on YouTube", cta_link: "#", badge: "Videos", status: "active" },
+  "about:how_we_work": {
+    headline: "How DHI Works",
+    body: "We operate through three complementary approaches that work together to create lasting, systemic change in Northern Nigeria.",
+    approaches: [
+      { title: "Research", description: "We generate rigorous, community-driven evidence on financial and data literacy needs, gaps, and opportunities across Northern Nigeria. Our research informs our programmes and shapes wider policy conversations." },
+      { title: "Training", description: "We design and deliver practical training through multiple formats — online courses, live workshops, one-on-one coaching, scholarships, and free video content in Hausa and English." },
+      { title: "Advocacy", description: "We use the evidence from our research and the insights from our programmes to advocate for policies that expand access to quality financial and data education across the region." },
     ],
   },
-  resources: {
+  "about:focus_area": {
+    headline: "Our Focus: Northern Nigeria",
+    body: "DHI's work is rooted in the Hausa-speaking communities of Northern Nigeria — a region defined by enormous potential, rich cultural heritage, and significant development challenges.\n\nWe understand the linguistic, cultural, and economic context of this region. That is why all of our programmes are designed with Northern Nigerian communities at the centre — not as an afterthought.",
+    image_url: "",
+  },
+
+  "programmes:hero": {
+    headline: "Our Programmes",
+    subheadline: "Practical, accessible, and culturally relevant programmes in financial and data literacy — designed for Northern Nigeria.",
+    image_url: "",
+  },
+  "programmes:financial_literacy": {
+    headline: "Financial Literacy",
+    description: "Our financial literacy programmes help individuals and households understand money, make better financial decisions, and build long-term resilience. All content is available in Hausa and English.",
+    programmes: [
+      { title: "Future Focus with Lailah", subtitle: "Podcast", description: "A podcast series exploring personal finance, savings, budgeting, and financial planning — for Hausa-speaking audiences. Available on all major podcast platforms.", cta_text: "Listen Now", cta_link: "#", badge: "Podcast", status: "active" },
+      { title: "Home CFO Course", subtitle: "Online Course", description: "A structured, self-paced course that teaches individuals how to manage their household finances like a chief financial officer — covering budgeting, cash flow, savings, and financial planning.", cta_text: "Apply Now", cta_link: "/apply", badge: "Course", status: "active" },
+      { title: "15-Minute Clarity Calls", subtitle: "1-on-1 Coaching", description: "Short, focused coaching sessions designed to give individuals one clear, actionable financial next step. Ideal for people who are stuck or unsure where to start.", cta_text: "Register Interest", cta_link: "/apply", badge: "Coaching", status: "active" },
+    ],
+  },
+  "programmes:data_literacy": {
+    headline: "Data Literacy",
+    description: "Our data literacy programmes build the capacity to understand and use data — from reading charts to creating reports. All content is taught in Hausa and English.",
+    programmes: [
+      { title: "Hausa Tech Training Scholarship", subtitle: "Scholarship", description: "A fully-funded scholarship for data analysis training — covering tools like Excel, Power BI, and Python basics. Open to qualified applicants from Northern Nigeria.", cta_text: "Apply for Scholarship", cta_link: "/apply", badge: "Scholarship", status: "active" },
+      { title: "Research on Data in Northern Nigeria", subtitle: "Research", description: "Ongoing research into how data is produced, accessed, and used in Northern Nigeria — with the goal of informing better policy and practice across the region.", cta_text: "View Research", cta_link: "/more#resources", badge: "Research", status: "active" },
+      { title: "Hausa Excel & Power BI Videos", subtitle: "Video Learning", description: "Free step-by-step tutorial videos in Hausa, covering Microsoft Excel and Power BI from beginner to intermediate level. Available on our YouTube channel.", cta_text: "Watch on YouTube", cta_link: "https://www.youtube.com/@Dahausainitiative", badge: "Videos", status: "active" },
+    ],
+  },
+
+  "events:hero": {
+    headline: "Events",
+    subheadline: "Workshops, webinars, and community sessions on financial and data literacy — open to everyone. Most events are free. Register early as places fill quickly.",
+    cta_text: "View Upcoming Events",
+    cta_link: "#upcoming",
+  },
+
+  "more:hero": {
+    headline: "More from DHI",
+    subheadline: "Explore our resources, subscribe to the newsletter, and get in touch with our team.",
+  },
+  "more:resources": {
     headline: "Resources",
-    description: "Explore our collection of podcasts, videos, research papers, and more.",
+    description: "Explore our collection of podcasts, videos, research papers, and documentary content — all focused on financial and data literacy for Northern Nigeria.",
     resources: [
-      { title: "Future Focus with Lailah", type: "Podcast", description: "Listen to our financial literacy podcast series.", link: "#", icon: "Mic" },
-      { title: "Hausa Excel & Power BI Videos", type: "Videos", description: "Data literacy video tutorials in Hausa on YouTube.", link: "#", icon: "Youtube" },
-      { title: "Policy Papers", type: "Research", description: "Research and policy papers on financial and data literacy.", link: "#", icon: "FileText" },
-      { title: "DHI Documentary", type: "Documentary", description: "A documentary on our work and community impact. Coming soon.", link: "#", icon: "Film", coming_soon: true },
+      { title: "Future Focus with Lailah", type: "Podcast", description: "Our financial literacy podcast series, available on Spotify, Apple Podcasts, and all major platforms. New episodes monthly.", link: "#", icon: "Mic" },
+      { title: "Hausa Excel & Power BI Videos", type: "Videos", description: "Free data literacy tutorial videos in Hausa on our YouTube channel — covering Excel, Power BI, and more.", link: "https://www.youtube.com/@Dahausainitiative", icon: "Youtube" },
+      { title: "Policy & Research Papers", type: "Research", description: "Research briefs and policy papers from DHI's work on financial and data literacy in Northern Nigeria.", link: "#", icon: "FileText" },
+      { title: "DHI Documentary", type: "Documentary", description: "An upcoming documentary telling the story of our work, the communities we serve, and the impact of financial literacy in Northern Nigeria.", link: "#", icon: "Film", coming_soon: true },
     ],
   },
-  contact: {
+  "more:contact": {
     headline: "Get in Touch",
-    description: "Have a question, partnership inquiry, or want to learn more about our work?",
-    email: "info@dahausa.org",
+    description: "Have a question, a partnership inquiry, or just want to learn more about what we do? We'd love to hear from you. We aim to respond to all messages within 2 working days.",
+    email: "emails@dahausainitiative.org",
     address: "FCT, Nigeria",
     show_contact_form: true,
   },
 };
+
+// ─── Generic fallback (if no page-specific match exists) ──────
+const SECTION_DEFAULTS: Record<string, Record<string, unknown>> = {
+  hero: {
+    headline: "Section Headline",
+    subheadline: "A short description of this section.",
+    image_url: "",
+  },
+};
+
+function getDefaults(page: string, sectionKey: string): Record<string, unknown> {
+  return PAGE_SECTION_DEFAULTS[`${page}:${sectionKey}`]
+    || SECTION_DEFAULTS[sectionKey]
+    || {};
+}
 
 interface CmsEditorClientProps {
   page: string;
   sections: Record<string, string>;
 }
 
-// ─── Value preview (read mode) ────────────────────────────────
 function ValuePreview({ value }: { value: unknown }) {
   if (value === null || value === undefined || value === "") {
     return <span className="text-gray-300 italic text-xs">Empty</span>;
@@ -629,7 +1168,6 @@ function ValuePreview({ value }: { value: unknown }) {
   return <span className="text-sm text-black">{str.length > 120 ? str.slice(0, 120) + "…" : str}</span>;
 }
 
-// ─── Field editor (edit mode) ─────────────────────────────────
 function FieldEditor({ fieldKey, value, onChange }: {
   fieldKey: string; value: unknown; onChange: (val: unknown) => void;
 }) {
@@ -658,18 +1196,13 @@ function FieldEditor({ fieldKey, value, onChange }: {
           <div key={i} className="border border-[#E8E8E8] bg-[#FAFAFA] p-4">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-bold text-[#BF4E14] uppercase tracking-wide">Item {i + 1}</span>
-              <button type="button"
-                onClick={() => { const a = [...arr]; a.splice(i, 1); onChange(a); }}
-                className="p-1 text-red-400 hover:text-red-600" title="Remove item">
-                <Trash2 size={13} />
-              </button>
+              <button type="button" onClick={() => { const a = [...arr]; a.splice(i, 1); onChange(a); }}
+                className="p-1 text-red-400 hover:text-red-600"><Trash2 size={13} /></button>
             </div>
             <div className="space-y-3">
               {Object.entries(item).map(([k, v]) => (
                 <div key={k}>
-                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wide block mb-1">
-                    {k.replace(/_/g, " ")}
-                  </label>
+                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wide block mb-1">{k.replace(/_/g, " ")}</label>
                   {typeof v === "boolean" ? (
                     <select value={String(v)} className="input-dhi text-sm py-1.5"
                       onChange={(e) => { const a = [...arr]; a[i] = { ...a[i], [k]: e.target.value === "true" }; onChange(a); }}>
@@ -705,7 +1238,7 @@ function FieldEditor({ fieldKey, value, onChange }: {
     return (
       <div className="space-y-2">
         <input type="text" value={imgStr} className="input-dhi text-sm py-2"
-          placeholder="Paste image URL or upload" onChange={(e) => onChange(e.target.value)} />
+          placeholder="Paste image URL or upload below" onChange={(e) => onChange(e.target.value)} />
         <label className="inline-flex items-center gap-2 cursor-pointer text-xs text-[#BF4E14] font-semibold hover:underline">
           <Upload size={12} />{uploading ? "Uploading…" : "Upload Image"}
           <input type="file" accept="image/*" className="hidden" disabled={uploading} onChange={handleImageUpload} />
@@ -732,7 +1265,6 @@ function FieldEditor({ fieldKey, value, onChange }: {
     return <textarea value={value} rows={4} onChange={(e) => onChange(e.target.value)} className="input-dhi text-sm py-2 resize-y" />;
   }
 
-  // Plain nested object — render as indented sub-fields
   if (typeof value === "object" && value !== null && !Array.isArray(value)) {
     const obj = value as Record<string, unknown>;
     return (
@@ -747,11 +1279,14 @@ function FieldEditor({ fieldKey, value, onChange }: {
     );
   }
 
-  // Short text fallback
-  return <input type="text" value={typeof value === "string" || typeof value === "number" ? String(value) : ""} onChange={(e) => onChange(e.target.value)} className="input-dhi text-sm py-2" />;
+  return (
+    <input type="text"
+      value={typeof value === "string" || typeof value === "number" ? String(value) : ""}
+      onChange={(e) => onChange(e.target.value)}
+      className="input-dhi text-sm py-2" />
+  );
 }
 
-// ─── Section editor ───────────────────────────────────────────
 function SectionEditor({ page, sectionKey, sectionLabel }: {
   page: string; sectionKey: string; sectionLabel: string;
 }) {
@@ -769,30 +1304,20 @@ function SectionEditor({ page, sectionKey, sectionLabel }: {
     try {
       const res = await fetch(`/api/cms?page=${encodeURIComponent(page)}&section=${encodeURIComponent(sectionKey)}`);
       const json = await res.json();
-      if (!res.ok) {
-        setFetchError(json.error || `HTTP ${res.status}`);
-        setSavedData({});
-        setDraftData({});
-        return;
-      }
+      if (!res.ok) { setFetchError(json.error || `HTTP ${res.status}`); setSavedData({}); setDraftData({}); return; }
       const content = json.content as Record<string, unknown>;
       setSavedData(content);
       setDraftData({ ...content });
-    } catch (err) {
+    } catch {
       setFetchError("Network error — check your connection.");
-      setSavedData({});
-      setDraftData({});
-    } finally {
-      setLoading(false);
-    }
+      setSavedData({}); setDraftData({});
+    } finally { setLoading(false); }
   }, [page, sectionKey]);
 
-  useEffect(() => {
-    if (open && savedData === null) fetchData();
-  }, [open, savedData, fetchData]);
+  useEffect(() => { if (open && savedData === null) fetchData(); }, [open, savedData, fetchData]);
 
   const handleInitialize = () => {
-    const defaults = SECTION_DEFAULTS[sectionKey] || {};
+    const defaults = getDefaults(page, sectionKey);
     setDraftData({ ...defaults });
     setEditing(true);
   };
@@ -806,31 +1331,19 @@ function SectionEditor({ page, sectionKey, sectionLabel }: {
         body: JSON.stringify({ page, section: sectionKey, content: draftData }),
       });
       const json = await res.json();
-      if (res.ok) {
-        setSavedData({ ...draftData });
-        setEditing(false);
-        toast.success(`"${sectionLabel}" saved successfully.`);
-      } else {
-        toast.error(json.error || "Save failed — please try again.");
-      }
-    } catch {
-      toast.error("Save failed — check your connection.");
-    } finally {
-      setSaving(false);
-    }
+      if (res.ok) { setSavedData({ ...draftData }); setEditing(false); toast.success(`"${sectionLabel}" saved.`); }
+      else toast.error(json.error || "Save failed.");
+    } catch { toast.error("Save failed — check your connection."); }
+    finally { setSaving(false); }
   };
 
-  const handleCancel = () => {
-    setDraftData(savedData || {});
-    setEditing(false);
-  };
+  const handleCancel = () => { setDraftData(savedData || {}); setEditing(false); };
 
   const isEmpty = savedData !== null && Object.keys(savedData).length === 0;
   const hasData = savedData !== null && Object.keys(savedData).length > 0;
 
   return (
     <div className="bg-white border border-[#E8E8E8] overflow-hidden">
-      {/* Header */}
       <button onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between px-5 py-4 hover:bg-[#FAFAFA] transition-colors text-left">
         <div className="flex items-center gap-3">
@@ -842,7 +1355,7 @@ function SectionEditor({ page, sectionKey, sectionLabel }: {
         </div>
         <div className="flex items-center gap-2">
           {open && hasData && !editing && (
-            <span role="button" onClick={(e) => { e.stopPropagation(); setEditing(true); setDraftData({ ...savedData }); }}
+            <span role="button" onClick={(e) => { e.stopPropagation(); setEditing(true); setDraftData({ ...savedData! }); }}
               className="flex items-center gap-1 text-xs text-[#BF4E14] font-semibold hover:underline px-2 py-1">
               <Edit2 size={11} /> Edit
             </span>
@@ -853,15 +1366,11 @@ function SectionEditor({ page, sectionKey, sectionLabel }: {
 
       {open && (
         <div className="border-t border-[#E8E8E8]">
-
-          {/* Loading */}
           {loading && (
             <div className="flex items-center gap-2 px-5 py-8 text-sm text-gray-400">
               <RefreshCw size={13} className="animate-spin" /> Loading from database…
             </div>
           )}
-
-          {/* Error */}
           {!loading && fetchError && (
             <div className="px-5 py-6">
               <p className="text-sm text-red-500 mb-1 font-semibold">Failed to load</p>
@@ -871,23 +1380,18 @@ function SectionEditor({ page, sectionKey, sectionLabel }: {
               </button>
             </div>
           )}
-
-          {/* Empty — no row in DB yet */}
           {!loading && !fetchError && isEmpty && (
             <div className="px-5 py-8 text-center">
               <Database size={28} className="text-gray-300 mx-auto mb-3" />
               <p className="text-sm font-semibold text-black mb-1">No content saved yet</p>
-              <p className="text-xs text-gray-400 mb-5">
-                This section has no data in the database. Initialize it with default content to get started.
+              <p className="text-xs text-gray-400 mb-5 max-w-sm mx-auto">
+                Click below to load this section with ready-to-publish content. Review and edit before saving.
               </p>
-              <button onClick={handleInitialize}
-                className="btn-primary text-sm">
-                <Plus size={14} /> Initialize with Defaults
+              <button onClick={handleInitialize} className="btn-primary text-sm">
+                <Plus size={14} /> Load Default Content
               </button>
             </div>
           )}
-
-          {/* Read mode — show saved values */}
           {!loading && !fetchError && hasData && !editing && (
             <div className="p-5">
               <div className="divide-y divide-[#F5F5F5] mb-5">
@@ -904,15 +1408,12 @@ function SectionEditor({ page, sectionKey, sectionLabel }: {
                 <button onClick={() => { setEditing(true); setDraftData({ ...savedData! }); }} className="btn-primary text-sm">
                   <Edit2 size={13} /> Edit Section
                 </button>
-                <button onClick={fetchData} title="Reload from database"
-                  className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-[#BF4E14] transition-colors">
+                <button onClick={fetchData} className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-[#BF4E14] transition-colors">
                   <RefreshCw size={11} /> Refresh
                 </button>
               </div>
             </div>
           )}
-
-          {/* Edit mode */}
           {!loading && !fetchError && editing && (
             <div className="p-5">
               <div className="flex items-center justify-between mb-5 pb-3 border-b border-[#F5F5F5]">
@@ -923,7 +1424,6 @@ function SectionEditor({ page, sectionKey, sectionLabel }: {
                   <X size={11} /> Cancel
                 </button>
               </div>
-
               <div className="space-y-6">
                 {Object.entries(draftData).map(([key, val]) => (
                   <div key={key}>
@@ -933,30 +1433,25 @@ function SectionEditor({ page, sectionKey, sectionLabel }: {
                   </div>
                 ))}
               </div>
-
               <div className="flex items-center gap-3 mt-8 pt-5 border-t border-[#F5F5F5]">
                 <button onClick={handleSave} disabled={saving} className="btn-primary">
-                  {saving
-                    ? <><RefreshCw size={13} className="animate-spin" /> Saving…</>
-                    : <><Check size={13} /> Save Changes</>}
+                  {saving ? <><RefreshCw size={13} className="animate-spin" /> Saving…</> : <><Check size={13} /> Save Changes</>}
                 </button>
                 <button onClick={handleCancel} className="btn-secondary text-sm">Discard</button>
               </div>
             </div>
           )}
-
         </div>
       )}
     </div>
   );
 }
 
-// ─── Main export ──────────────────────────────────────────────
 export default function CmsEditorClient({ page, sections }: CmsEditorClientProps) {
   return (
     <div className="space-y-3">
       <p className="text-sm text-gray-400 mb-4">
-        Expand any section to view its current content. Sections marked with a grey dot have no saved data — click to initialize them.
+        Expand any section to view its saved content. Sections with a grey dot have no saved data — click to load ready-to-publish defaults.
       </p>
       {Object.entries(sections).map(([sectionKey, sectionLabel]) => (
         <SectionEditor key={sectionKey} page={page} sectionKey={sectionKey} sectionLabel={sectionLabel} />
@@ -964,5 +1459,3 @@ export default function CmsEditorClient({ page, sections }: CmsEditorClientProps
     </div>
   );
 }
-
-
