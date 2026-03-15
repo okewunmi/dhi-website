@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { Mic, Youtube, FileText, Film, ExternalLink, Send, CheckCircle, ArrowRight, Mail, MapPin } from "lucide-react";
 import toast from "react-hot-toast";
