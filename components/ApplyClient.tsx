@@ -236,8 +236,8 @@ export default function ApplyClient({ formConfig }: { formConfig: FormConfig }) 
                   </p>
                   <p className="text-sm text-[#4A4A4A]">
                     Reach out to us at{" "}
-                    <a href="mailto:info@dahausa.org" className="text-[#BF4E14] underline">
-                      info@dahausa.org
+                    <a href="mailto:emails@dahausainitiative.org" className="text-[#BF4E14] underline">
+                      emails@dahausainitiative.org
                     </a>
                   </p>
                 </div>
