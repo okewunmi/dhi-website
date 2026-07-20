@@ -55,6 +55,11 @@ const NAV_ITEMS = [
     icon: <FormInput size={18} />,
   },
   {
+    href: "/admin/messages",
+    label: "Subscibers Message ",
+    icon: <MessageSquare size={18} />,
+  },
+  {
     href: "/admin/email",
     label: "Send Newsletter",
     icon: <Send size={18} />,
@@ -64,11 +69,7 @@ const NAV_ITEMS = [
     label: "Site Settings",
     icon: <Settings size={18} />,
   },
-  {
-    href: "/admin/messages",
-    label: "Subscibers Message ",
-    icon: <MessageSquare size={18} />,
-  },
+  
 ];
 
 export default function AdminSidebar() {
