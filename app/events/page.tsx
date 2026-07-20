@@ -4,7 +4,11 @@ import Footer from "@/components/Footer";
 import EventsClient from "@/components/events/EventsClient";
 import { createServerClient, getCmsContent } from "@/lib/supabase-server";
 
+// export const dynamic = "force-dynamic";
+
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export async function generateMetadata(): Promise<Metadata> {
   const hero = await getCmsContent("events", "hero") as Record<string, string> | null;

@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase-server";
 import { isAdminRequest } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
 // ─── GET — public: list all events ───────────────────────────
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -18,9 +22,16 @@ export async function GET(request: NextRequest) {
   if (type && type !== "all") query = query.eq("type", type);
   if (status && status !== "all") query = query.eq("status", status);
 
+  // const { data, error } = await query;
+  // if (error) return NextResponse.json({ error: "Failed to fetch events" }, { status: 500 });
+  // return NextResponse.json({ events: data || [] });
+  
   const { data, error } = await query;
   if (error) return NextResponse.json({ error: "Failed to fetch events" }, { status: 500 });
-  return NextResponse.json({ events: data || [] });
+  return NextResponse.json({ events: data || [] }, {
+    headers: { "Cache-Control": "no-store, must-revalidate" },
+  });
+
 }
 
 // ─── POST — admin: create event ──────────────────────────────
