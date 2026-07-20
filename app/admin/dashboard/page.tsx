@@ -3,6 +3,10 @@ import Link from "next/link";
 import { Users, MessageSquare, Send, FileEdit, ArrowRight } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
 async function getDashboardStats() {
   const db = createServerClient();
 
@@ -41,7 +45,7 @@ export default async function AdminDashboard() {
 
   const statCards = [
     { label: "Active Subscribers", value: stats.totalSubscribers, icon: <Users size={22} strokeWidth={1.5} />, link: "/admin/subscribers" },
-    { label: "Unread Messages", value: stats.unreadContacts, icon: <MessageSquare size={22} strokeWidth={1.5} />, link: "/admin/settings" },
+    { label: "Unread Messages", value: stats.unreadContacts, icon: <MessageSquare size={22} strokeWidth={1.5} />, link: "/admin/messages" },
     { label: "Campaigns Sent", value: stats.totalCampaigns, icon: <Send size={22} strokeWidth={1.5} />, link: "/admin/email" },
   ];
 
