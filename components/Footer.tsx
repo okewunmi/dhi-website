@@ -12,7 +12,7 @@ const QUICK_LINKS = [
   { href: "/about", label: "About DHI" },
   { href: "/programmes", label: "Programmes" },
   { href: "/events", label: "Events" },
-  // { href: "/blog", label: "Blog" },
+  { href: "/blog", label: "Blog" },
   { href: "/apply", label: "Apply / Register" },
   { href: "/more#resources", label: "Resources" },
   { href: "/more#newsletter", label: "Newsletter" },

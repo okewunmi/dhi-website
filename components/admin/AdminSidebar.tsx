@@ -45,11 +45,11 @@ const NAV_ITEMS = [
     label: "Events",
     icon: <CalendarDays size={18} />,
   },
-  // {
-  //   href: "/admin/blog",
-  //   label: "Blog",
-  //   icon: <Newspaper size={18} />,
-  // },
+  {
+    href: "/admin/blog",
+    label: "Blog",
+    icon: <Newspaper size={18} />,
+  },
   {
     href: "/admin/subscribers",
     label: "Subscribers",
