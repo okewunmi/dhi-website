@@ -27,6 +27,8 @@
 // }
 
 
+export const dynamic = "force-dynamic";
+
 import ApplyClient from "@/components/ApplyClient";
 import PublicLayout from "@/components/PublicLayout";
 import { getProgrammes, getSiteSetting } from "@/lib/supabase-server";
