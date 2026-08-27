@@ -339,6 +339,7 @@ interface Programme {
   badge: string;
   google_form_link: string;
   status: "open" | "coming_soon" | "closed";
+  accepting_applications: boolean;
 }
 
 export default function ApplyClient({
@@ -434,6 +435,12 @@ export default function ApplyClient({
                       <div className="text-center py-12 border border-[#E8E8E8]">
                         <p className="text-[#4A4A4A] text-sm">
                           Applications for this programme haven&apos;t opened yet.
+                        </p>
+                      </div>
+                    ) : !active.accepting_applications ? (
+                      <div className="text-center py-12 border border-[#E8E8E8]">
+                        <p className="text-[#4A4A4A] text-sm">
+                          Registration for this programme is currently closed.
                         </p>
                       </div>
                     ) : active.google_form_link ? (

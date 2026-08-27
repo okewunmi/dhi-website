@@ -13,6 +13,7 @@ interface Programme {
   badge: string;
   google_form_link: string;
   status: "open" | "coming_soon" | "closed";
+  accepting_applications: boolean;
   sort_order: number;
 }
 
@@ -24,6 +25,7 @@ const BLANK: Programme = {
   badge: "Course",
   google_form_link: "",
   status: "open",
+  accepting_applications: true,
   sort_order: 0,
 };
 
@@ -218,6 +220,16 @@ export default function ProgrammesAdminPage() {
             value={draft.sort_order}
             onChange={(e) => setDraft({ ...draft, sort_order: Number(e.target.value) })}
           />
+          <label className="flex items-center gap-2 text-sm text-[#4A4A4A] sm:col-span-2">
+            <input
+              type="checkbox"
+              checked={draft.accepting_applications}
+              onChange={(e) =>
+                setDraft({ ...draft, accepting_applications: e.target.checked })
+              }
+            />
+            Accepting applications
+          </label>
         </div>
         <button onClick={handleAdd} disabled={saving} className="btn-primary mt-5">
           <Plus size={15} />
@@ -250,6 +262,16 @@ export default function ProgrammesAdminPage() {
                 <option value="coming_soon">Coming Soon</option>
                 <option value="closed">Closed (hidden)</option>
               </select>
+              <label className="flex items-center gap-2 text-sm text-[#4A4A4A]">
+                <input
+                  type="checkbox"
+                  checked={p.accepting_applications}
+                  onChange={(e) =>
+                    updateField(p.id!, "accepting_applications", e.target.checked)
+                  }
+                />
+                Accepting applications
+              </label>
             </div>
             <div className="flex items-center gap-3 mt-4">
               <button onClick={() => handleUpdate(p)} className="btn-primary !py-2 !px-4 text-xs">
@@ -262,15 +284,15 @@ export default function ProgrammesAdminPage() {
                 <Trash2 size={13} /> Delete
               </button>
               {p.google_form_link && (
-  
-   <a href={p.google_form_link}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-xs text-gray-400 flex items-center gap-1 hover:text-[#BF4E14]"
-  >
-    <ExternalLink size={12} /> Preview
-  </a>
-)}
+                <a
+                  href={p.google_form_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-gray-400 flex items-center gap-1 hover:text-[#BF4E14]"
+                >
+                  <ExternalLink size={12} /> Preview
+                </a>
+              )}
             </div>
           </div>
         ))}
