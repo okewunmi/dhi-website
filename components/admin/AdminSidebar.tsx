@@ -23,6 +23,61 @@ import {
 import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
 
+// const NAV_ITEMS = [
+//   {
+//     href: "/admin/dashboard",
+//     label: "Dashboard",
+//     icon: <LayoutDashboard size={18} />,
+//   },
+//   {
+//     label: "Content (CMS)",
+//     icon: <FileEdit size={18} />,
+//     children: [
+//       { href: "/admin/content/home", label: "Home" },
+//       { href: "/admin/content/about", label: "About" },
+//       { href: "/admin/content/programmes", label: "Programmes" },
+//       { href: "/admin/content/events", label: "Events Page" },
+//       { href: "/admin/content/more", label: "More Page" },
+//     ],
+//   },
+//   {
+//     href: "/admin/events",
+//     label: "Events",
+//     icon: <CalendarDays size={18} />,
+//   },
+//   {
+//     href: "/admin/blog",
+//     label: "Blog",
+//     icon: <Newspaper size={18} />,
+//   },
+//   {
+//     href: "/admin/subscribers",
+//     label: "Subscribers",
+//     icon: <Users size={18} />,
+//   },
+//   {
+//     href: "/admin/forms",
+//     label: "Form Settings",
+//     icon: <FormInput size={18} />,
+//   },
+//   {
+//     href: "/admin/messages",
+//     label: "Subscibers Message ",
+//     icon: <MessageSquare size={18} />,
+//   },
+//   {
+//     href: "/admin/email",
+//     label: "Send Newsletter",
+//     icon: <Send size={18} />,
+//   },
+//   {
+//     href: "/admin/settings",
+//     label: "Site Settings",
+//     icon: <Settings size={18} />,
+//   },
+  
+// ];
+
 const NAV_ITEMS = [
   {
     href: "/admin/dashboard",
@@ -35,7 +90,6 @@ const NAV_ITEMS = [
     children: [
       { href: "/admin/content/home", label: "Home" },
       { href: "/admin/content/about", label: "About" },
-      { href: "/admin/content/programmes", label: "Programmes" },
       { href: "/admin/content/events", label: "Events Page" },
       { href: "/admin/content/more", label: "More Page" },
     ],
@@ -51,14 +105,14 @@ const NAV_ITEMS = [
     icon: <Newspaper size={18} />,
   },
   {
+    href: "/admin/programmes",
+    label: "Programmes",
+    icon: <FormInput size={18} />,
+  },
+  {
     href: "/admin/subscribers",
     label: "Subscribers",
     icon: <Users size={18} />,
-  },
-  {
-    href: "/admin/forms",
-    label: "Form Settings",
-    icon: <FormInput size={18} />,
   },
   {
     href: "/admin/messages",
@@ -75,7 +129,6 @@ const NAV_ITEMS = [
     label: "Site Settings",
     icon: <Settings size={18} />,
   },
-  
 ];
 
 export default function AdminSidebar() {
