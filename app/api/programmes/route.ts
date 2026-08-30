@@ -1,3 +1,4 @@
+// app/api/programmes/route.ts
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
@@ -8,6 +9,11 @@ export async function GET() {
   const programmes = await getProgrammes();
   return NextResponse.json(
     { programmes },
-    { headers: { "Cache-Control": "no-store, no-cache, must-revalidate" } }
+    {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Netlify-CDN-Cache-Control": "no-store",
+      },
+    }
   );
 }

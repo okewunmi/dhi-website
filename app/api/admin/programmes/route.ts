@@ -1,9 +1,19 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient, getAllProgrammes } from "@/lib/supabase-server";
 
 export async function GET() {
   const programmes = await getAllProgrammes();
-  return NextResponse.json({ programmes });
+  return NextResponse.json(
+    { programmes },
+    {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Netlify-CDN-Cache-Control": "no-store",
+      },
+    }
+  );
 }
 
 export async function POST(req: NextRequest) {
