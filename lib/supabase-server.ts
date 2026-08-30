@@ -185,32 +185,51 @@ export async function updateSiteSetting(
 }
 
 // Helper: Get programmes (optionally filtered by pillar), excludes closed
+// export async function getProgrammes(pillar?: string) {
+//   const db = createServerClient();
+//   let query = db
+//     .from("programmes")
+//     .select("*")
+//     .neq("status", "closed")
+//     .order("pillar", { ascending: true })
+//     .order("sort_order", { ascending: true });
+
+//   if (pillar) query = query.eq("pillar", pillar);
+
+//   const { data, error } = await query;
+//   if (error || !data) return [];
+//   return data;
+// }
+
 export async function getProgrammes(pillar?: string) {
   const db = createServerClient();
   let query = db
     .from("programmes")
     .select("*")
     .neq("status", "closed")
-    .order("pillar", { ascending: true })
     .order("sort_order", { ascending: true });
 
   if (pillar) query = query.eq("pillar", pillar);
 
   const { data, error } = await query;
-  if (error || !data) return [];
-  return data;
+  if (error) {
+    console.error("getProgrammes error:", error);
+    return [];
+  }
+  return data || [];
 }
 
-// Helper: Get ALL programmes incl. closed (for admin)
 export async function getAllProgrammes() {
   const db = createServerClient();
   const { data, error } = await db
     .from("programmes")
     .select("*")
-    .order("pillar", { ascending: true })
     .order("sort_order", { ascending: true });
-  if (error || !data) return [];
-  return data;
+  if (error) {
+    console.error("getAllProgrammes error:", error);
+    return [];
+  }
+  return data || [];
 }
 
 // Public client for client-side reads
