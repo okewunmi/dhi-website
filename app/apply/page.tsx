@@ -28,6 +28,7 @@
 
 
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 import ApplyClient from "@/components/ApplyClient";
 import PublicLayout from "@/components/PublicLayout";
