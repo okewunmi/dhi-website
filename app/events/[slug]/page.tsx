@@ -6,7 +6,10 @@ import Footer from "@/components/Footer";
 import { createServerClient } from "@/lib/supabase-server";
 import { Calendar, MapPin, Clock, ExternalLink, ArrowLeft, Tag } from "lucide-react";
 
+// export const dynamic = "force-dynamic";
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 interface Event {
   id: string;
@@ -96,10 +99,15 @@ export default async function EventDetailPage({
         {(event as Event).image_url && (
           <div className="container-dhi mt-6">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            {/* <img
               src={(event as Event).image_url!}
               alt={(event as Event).title}
               className="w-full max-h-[420px] object-cover"
+            /> */}
+            <img
+              src={(event as Event).image_url!}
+              alt={(event as Event).title}
+              className="w-full h-auto object-contain"
             />
           </div>
         )}
